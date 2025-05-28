@@ -30,7 +30,7 @@ public class StudentMarksCalculator {
         double percentage = (totalMarks / 500.0) * 100;
 
         System.out.println("Total Marks = " + totalMarks);
-        System.out.printf("Average Marks = " + averageMarks);
-        System.out.printf("Percentage = " + percentage);
+        System.out.println("Average Marks = " + averageMarks);
+        System.out.println("Percentage = " + percentage);
     }
   }
