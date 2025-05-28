@@ -1,0 +1,15 @@
+import java.util.*;
+public class Main{
+    public static void main(String[]arg)
+    {
+     Scanner sc=new Scanner(System.in);
+     System.out.println("Enter a 4-digit number: ");
+     int num=sc.nextInt();
+     // d1=first digit of number
+     // d4=last digit of number 
+     int d1=(num/1000);
+     int d2=num%10;
+     int sum=d1+d2;
+     System.out.println("The addition of first and last digit of " + num + " is: " + sum);
+    }
+}
