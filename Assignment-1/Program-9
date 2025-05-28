@@ -1,0 +1,15 @@
+public class Main{
+    public static void main(String[]arg)
+    {
+     //circle
+     int radius=5;
+     double pi=3.142;
+     double areaofCircle =pi*radius*radius;
+     //triangle
+     int base = 4;
+     int height = 6;
+     double areaofTriangle = 0.5*base*height;
+     System.out.println("Area of Circle = " + areaofCircle);
+     System.out.println("Area of Triangle = " + areaofTriangle);
+    }
+}
