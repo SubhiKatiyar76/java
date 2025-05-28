@@ -1,0 +1,20 @@
+import java.util.*;
+
+public class Main{
+    public static void main(String[]arg)
+    {
+     Scanner sc=new Scanner(System.in);
+     System.out.println("Enter a 4-digit number: ");
+     int num=sc.nextInt();
+     // d1=first digit of num
+     // d2=second digit of num
+     // d3=third digit of num
+     // d4=fourth digit of num
+      int d1 = (num/1000);
+      int d2 = (num%1000)/100;
+      int d3 = (num%100)/10;
+      int d4 = num%10;
+      int sum=d1+d2+d3+d4;
+      System.out.println(sum);
+    }
+}
