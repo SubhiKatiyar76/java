@@ -1,0 +1,36 @@
+import java.util.*;
+
+public class StudentMarksCalculator {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Read marks of 5 students
+        System.out.print("Enter marks for Student 1: ");
+        int student1 = sc.nextInt();
+
+        System.out.print("Enter marks for Student 2: ");
+        int student2 = sc.nextInt();
+
+        System.out.print("Enter marks for Student 3: ");
+        int student3 = sc.nextInt();
+
+        System.out.print("Enter marks for Student 4: ");
+        int student4 = sc.nextInt();
+
+        System.out.print("Enter marks for Student 5: ");
+        int student5 = sc.nextInt();
+
+        // Calculate total
+        int totalMarks = student1 + student2 + student3 + student4 + student5;
+
+        // Average
+        double averageMarks = totalMarks / 5.0;
+
+        // Assuming each student can score max 100 marks
+        double percentage = (totalMarks / 500.0) * 100;
+
+        System.out.println("Total Marks = " + totalMarks);
+        System.out.printf("Average Marks = " + averageMarks);
+        System.out.printf("Percentage = " + percentage);
+    }
+  }
