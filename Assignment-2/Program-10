@@ -1,0 +1,14 @@
+import java.util.Scanner;
+
+public class DigitChecker {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter age : ");
+        int age= scanner.nextInt();
+        if(age>=18){
+           System.out.println("the canditidate is eligible for casting her own vote");
+        }else{
+           System.out.println("the canditidate is not eligible for casting her own vote");
+        }
+    }
+}
