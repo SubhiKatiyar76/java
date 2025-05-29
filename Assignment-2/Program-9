@@ -1,0 +1,19 @@
+import java.util.Scanner;
+
+public class DigitChecker {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+        int number = scanner.nextInt();
+        // Check number of digits
+        if (number >= 0 && number <= 9) {
+            System.out.println("The number is a single-digit number.");
+        } else if (number >= 10 && number <= 99) {
+            System.out.println("The number is a two-digit number.");
+        } else if (number >= 100 && number <= 999) {
+            System.out.println("The number is a three-digit number.");
+        } else {
+            System.out.println("The number has more than three digits.");
+        }
+    }
+}
