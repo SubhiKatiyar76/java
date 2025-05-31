@@ -1,0 +1,39 @@
+import java.util.Scanner;
+
+class Area {
+    static final double PI = 3.14;
+    double radius;
+    double height; 
+
+    Area(double radius) {
+        this.radius = radius;
+    }
+
+    Area(double r, double h) {
+        radius = r;
+        height = h;
+    }
+
+    double areaOfCircle() {
+        return PI * radius * radius;
+    }
+    double areaOfCylinder() {
+        return 2 * PI * radius * (radius + height);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter the radius of the circle: ");
+        double r = sc.nextDouble();
+        Area circle = new Area(r);
+        System.out.println("Area of Circle = " + circle.areaOfCircle());
+
+        System.out.print("\nEnter the radius of the cylinder: ");
+        double rc = sc.nextDouble();
+        System.out.print("Enter the height of the cylinder: ");
+        double h = sc.nextDouble();
+        Area cylinder = new Area(rc, h);
+        System.out.println("Surface Area of Cylinder = " + cylinder.areaOfCylinder());
+    }
+}
