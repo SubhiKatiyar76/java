@@ -1,0 +1,25 @@
+class InfoDisplay {
+
+    // Method to display an integer
+    void show(int number) {
+        System.out.println("Integer: " + number);
+    }
+
+    // Method to display a string
+    void show(String text) {
+        System.out.println("String: " + text);
+    }
+
+    // Method to display a string and an integer
+    void show(String text, int number) {
+        System.out.println("String: " + text + ", Integer: " + number);
+    }
+
+    public static void main(String[] args) {
+        InfoDisplay display = new InfoDisplay();
+
+        display.show(42);              
+        display.show("Hello, Java!");      
+        display.show("Count", 10);         
+    }
+}
