@@ -1,0 +1,48 @@
+public class Student {
+    String name;
+    int age;
+    String department;
+
+    // Constructor with no arguments (default values)
+    public Student() {
+        this("Unknown", 0, "Undeclared");
+    }
+
+    // Constructor with one argument (name)
+    public Student(String name) {
+        this(name, 0, "Undeclared"); 
+    }
+
+    // Constructor with two arguments (name and age)
+    public Student(String name, int age) {
+        this(name, age, "Undeclared"); 
+    }
+
+    // Constructor with three arguments (name, age, and department)
+    public Student(String name, int age, String department) {
+        this.name = name;
+        this.age = age;
+        this.department = department;
+    }
+
+    // Method to display student information
+    public void display() {
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("Department: " + department);
+        System.out.println("--------------------------");
+    }
+
+    // Main method to test the overloaded constructors
+    public static void main(String[] args) {
+        Student s1 = new Student();                        // Default values
+        Student s2 = new Student("Alice");                 // Name only
+        Student s3 = new Student("Bob", 20);               // Name and age
+        Student s4 = new Student("Charlie", 22, "CS");     // All values
+
+        s1.display();
+        s2.display();
+        s3.display();
+        s4.display();
+    }
+}
