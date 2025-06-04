@@ -1,0 +1,31 @@
+public class ShapeDrawer {
+
+    // no parameters
+    public void draw() {
+        System.out.println("Drawing shape");
+    }
+
+    //  one String parameter
+    public void draw(String shapeName) {
+        System.out.println("Drawing shape: " + shapeName);
+    }
+
+    // String and int size
+    public void draw(String shapeName, int size) {
+        System.out.println("Drawing " + shapeName + " of size " + size);
+    }
+
+    //  String, width and height
+    public void draw(String shapeName, int width, int height) {
+        System.out.println("Drawing " + shapeName + " with width " + width + " and height " + height);
+    }
+
+    public static void main(String[] args) {
+        ShapeDrawer drawer = new ShapeDrawer();
+
+        drawer.draw();
+        drawer.draw("Circle");
+        drawer.draw("Square", 5);
+        drawer.draw("Rectangle", 10, 20);
+    }
+}
