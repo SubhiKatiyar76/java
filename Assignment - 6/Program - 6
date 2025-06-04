@@ -1,0 +1,33 @@
+class Employee {
+    int id;
+    String name;
+    double salary;
+
+    // Constructor with only Employee ID
+    Employee(int id) {
+        this.id = id;
+        System.out.println("Employee ID: " + id);
+    }
+
+    // Constructor with Employee ID and name
+    Employee(int id, String name) {
+        this.id = id;
+        this.name = name;
+        System.out.println("Employee ID: " + id + ", Name: " + name);
+    }
+
+    // Constructor with Employee ID, name, and salary
+    Employee(int id, String name, double salary) {
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+        System.out.println("Employee ID: " + id + ", Name: " + name + ", Salary: " + salary);
+    }
+
+    public static void main(String[] args) {
+        // Using different constructors
+        Employee emp1 = new Employee(101);
+        Employee emp2 = new Employee(102, "Alice");
+        Employee emp3 = new Employee(103, "Bob", 75000.00);
+    }
+}
