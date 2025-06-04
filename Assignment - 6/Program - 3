@@ -1,0 +1,29 @@
+public class Area {
+
+    // Method to calculate area of a circle
+    public double calculate(double radius) {
+        return Math.PI * radius * radius;
+    }
+
+    // Method to calculate area of a rectangle
+    public double calculate(double length, double width) {
+        return length * width;
+    }
+
+    // Method to calculate area of a triangle
+    public double calculate(int base, int height) {
+        return 0.5 * base * height;
+    }
+
+    public static void main(String[] args) {
+        Area area = new Area();
+
+        double circleArea = area.calculate(7.0); // radius
+        double rectangleArea = area.calculate(5.0, 4.0); // length, width
+        double triangleArea = area.calculate(6, 8); // base, height
+
+        System.out.println("Area of Circle: " + circleArea);
+        System.out.println("Area of Rectangle: " + rectangleArea);
+        System.out.println("Area of Triangle: " + triangleArea);
+    }
+}
