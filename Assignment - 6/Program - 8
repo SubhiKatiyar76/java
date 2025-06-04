@@ -1,0 +1,33 @@
+class Movie {
+    String title;
+    String genre;
+    int releaseYear;
+
+    // Constructor with title only
+    Movie(String title) {
+        this.title = title;
+        System.out.println("Title: " + title);
+    }
+
+    // Constructor with title and genre
+    Movie(String title, String genre) {
+        this.title = title;
+        this.genre = genre;
+        System.out.println("Title: " + title + ", Genre: " + genre);
+    }
+
+    // Constructor with title, genre, and release year
+    Movie(String title, String genre, int releaseYear) {
+        this.title = title;
+        this.genre = genre;
+        this.releaseYear = releaseYear;
+        System.out.println("Title: " + title + ", Genre: " + genre + ", Release Year: " + releaseYear);
+    }
+
+    public static void main(String[] args) {
+        // Creating Movie objects using different constructors
+        Movie movie1 = new Movie("Inception");
+        Movie movie2 = new Movie("Interstellar", "Sci-Fi");
+        Movie movie3 = new Movie("The Dark Knight", "Action", 2008);
+    }
+}
