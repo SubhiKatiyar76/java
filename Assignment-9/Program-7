@@ -1,0 +1,35 @@
+import java.util.Scanner;
+
+public class DuplicateFinder {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int[] numbers = new int[10];
+
+        // Input array elements
+        System.out.println("Enter 10 integers:");
+        for (int i = 0; i < numbers.length; i++) {
+            System.out.print("Element " + (i + 1) + ": ");
+            numbers[i] = scanner.nextInt();
+        }
+        
+        System.out.println("Duplicate elements:");
+        boolean hasDuplicates = false;
+
+        for (int i = 0; i < numbers.length; i++) {
+            for (int j = i + 1; j < numbers.length; j++) {
+                if (numbers[i] == numbers[j]) {
+                    
+                    boolean alreadyPrinted = false;
+                    for (int k = 0; k < i; k++) {
+                        if (numbers[k] == numbers[i]) {
+                            alreadyPrinted = true;
+                            break;
+                        }
+                    }
+                    if (!alreadyPrinted) {
+                        System.out.println(numbers[i]);
+                        hasDuplicates = true;
+                    }
+                }
+            }
+        }
