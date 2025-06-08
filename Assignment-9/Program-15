@@ -1,0 +1,49 @@
+import java.util.Scanner;
+
+public class InsertElementAtPosition {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input size of the array
+        System.out.print("Enter number of elements: ");
+        int n = scanner.nextInt();
+
+        // Original array (with size n+1 to allow insertion)
+        int[] arr = new int[n + 1];
+
+        // Input original array elements
+        System.out.println("Enter " + n + " elements:");
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanner.nextInt();
+        }
+
+        // Input the number to insert
+        System.out.print("Enter the number to insert: ");
+        int num = scanner.nextInt();
+
+        // Input the index (position)
+        System.out.print("Enter the position to insert (0 to " + n + "): ");
+        int pos = scanner.nextInt();
+
+        // Validate position
+        if (pos < 0 || pos > n) {
+            System.out.println("Invalid position! Please enter between 0 and " + n);
+            return;
+        }
+
+        // Shift elements to the right
+        for (int i = n; i > pos; i--) {
+            arr[i] = arr[i - 1];
+        }
+
+        // Insert the number
+        arr[pos] = num;
+
+        // Display updated array
+        System.out.println("Array after insertion:");
+        for (int i = 0; i <= n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+
+    }
+}
