@@ -1,0 +1,17 @@
+import java.util.*;
+public class ArraySumAverage{
+    public static void main (String []args){
+        int[] numbers=new int[8];
+        int sum=0;
+        double average;
+        System.out.println("Enter the 8 integers: ");
+        Scanner sc=new Scanner(System.in);
+        for(int i=0;i<8;i++){
+            numbers[i]=sc.nextInt();
+            sum = sum+numbers[i];
+        }
+        average = (double) (sum/8);
+        System.out.println("Sum is: " +sum);
+        System.out.println("Average is: " +average);
+    } 
+}
