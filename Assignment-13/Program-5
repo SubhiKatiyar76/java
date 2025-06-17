@@ -1,0 +1,70 @@
+public class UtilityPackageDemo {
+
+    static class StringUtil {
+        public static String reverse(String input) {
+            return new StringBuilder(input).reverse().toString();
+        }
+
+        public static String toTitleCase(String input) {
+            String[] words = input.toLowerCase().split(" ");
+            StringBuilder sb = new StringBuilder();
+            for (String word : words) {
+                if (word.length() > 0) {
+                    sb.append(Character.toUpperCase(word.charAt(0)))
+                      .append(word.substring(1)).append(" ");
+                }
+            }
+            return sb.toString().trim();
+        }
+    }
+
+    static class MathUtil {
+        public static int factorial(int n) {
+            if (n < 0) return -1;
+            int result = 1;
+            for (int i = 2; i <= n; i++) {
+                result *= i;
+            }
+            return result;
+        }
+
+        public static boolean isPrime(int num) {
+            if (num <= 1) return false;
+            for (int i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i == 0) return false;
+            }
+            return true;
+        }
+    }
+
+    static class Validator {
+        public static boolean isValidEmail(String email) {
+            return email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$");
+        }
+
+        public static boolean isNumeric(String str) {
+            return str.matches("\\d+");
+        }
+    }
+
+    public static void main(String[] args) {
+
+        String name = "hello world";
+        System.out.println("Original: " + name);
+        System.out.println("Reversed: " + StringUtil.reverse(name));
+        System.out.println("Title Case: " + StringUtil.toTitleCase(name));
+
+        int num = 5;
+        System.out.println("\nFactorial of " + num + ": " + MathUtil.factorial(num));
+        System.out.println("Is " + num + " prime? " + MathUtil.isPrime(num));
+
+
+        String email = "example@mail.com";
+        String phone = "1234567890";
+        String invalid = "abc123";
+
+        System.out.println("\nIs valid email? " + Validator.isValidEmail(email));
+        System.out.println("Is numeric (phone)? " + Validator.isNumeric(phone));
+        System.out.println("Is numeric (invalid)? " + Validator.isNumeric(invalid));
+    }
+}
