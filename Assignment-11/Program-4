@@ -1,0 +1,17 @@
+ public class CharArrayToString {
+    public static void main(String[] args) {
+        // Define a character array
+        char[] charArray = { 'J', 'a', 'v', 'a', ' ', 'R', 'o', 'c', 'k', 's' };
+
+        // Create a String from the character array
+        String str = new String(charArray);
+
+        // Display the result
+        System.out.println("Character Array: ");
+        for (char ch : charArray) {
+            System.out.print(ch + " ");
+        }
+
+        System.out.println("\nConverted String: " + str);
+    }
+}
