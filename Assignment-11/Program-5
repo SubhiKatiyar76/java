@@ -1,0 +1,25 @@
+import java.util.Scanner;
+
+public class ReplaceCatDogNames {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        
+        System.out.print("Enter a sentence containing 'cat' and 'dog': ");
+        String sentence = scanner.nextLine();
+
+        
+        System.out.print("Enter the cat's name: ");
+        String catName = scanner.nextLine();
+
+        System.out.print("Enter the dog's name: ");
+        String dogName = scanner.nextLine();
+
+        
+        String updatedSentence = sentence.replaceAll("cat", catName);
+        updatedSentence = updatedSentence.replaceAll("dog", dogName);
+
+    
+        System.out.println("Updated sentence: " + updatedSentence);
+    }
+}
