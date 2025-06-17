@@ -1,0 +1,49 @@
+package shapes;
+
+class Circle {
+    private double radius;
+
+    public Circle(double radius) {
+        this.radius = radius;
+    }
+
+    public double getArea() {
+        return Math.PI * radius * radius;
+    }
+
+    public double getPerimeter() {
+        return 2 * Math.PI * radius;
+    }
+}
+
+class Rectangle {
+    private double length;
+    private double width;
+
+    public Rectangle(double length, double width) {
+        this.length = length;
+        this.width = width;
+    }
+
+    public double getArea() {
+        return length * width;
+    }
+
+    public double getPerimeter() {
+        return 2 * (length + width);
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        
+        shapes.Circle circle = new shapes.Circle(7.0);
+        shapes.Rectangle rectangle = new shapes.Rectangle(5.0, 3.0);
+
+        System.out.println("Circle Area: " + circle.getArea());
+        System.out.println("Circle Perimeter: " + circle.getPerimeter());
+
+        System.out.println("Rectangle Area: " + rectangle.getArea());
+        System.out.println("Rectangle Perimeter: " + rectangle.getPerimeter());
+    }
+}
