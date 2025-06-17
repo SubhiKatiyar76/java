@@ -1,0 +1,43 @@
+// File A in packone
+
+package packone;
+
+public class AccessModifiers {
+    public int publicVar = 1;
+    private int privateVar = 2;
+    protected int protectedVar = 3;
+    int defaultVar = 4;
+
+    public void showAccess() {
+        System.out.println("Inside packone.AccessModifiers:");
+        System.out.println("publicVar: " + publicVar);
+        System.out.println("privateVar: " + privateVar);
+        System.out.println("protectedVar: " + protectedVar);
+        System.out.println("defaultVar: " + defaultVar);
+    }
+}
+//  File B in packtwo
+
+package packtwo;
+
+import packone.AccessModifiers;
+
+public class TestAccess {
+    public static void main(String[] args) {
+        AccessModifiers obj = new AccessModifiers();
+
+        System.out.println("Inside packtwo.TestAccess:");
+
+        // Accessible
+        System.out.println("publicVar: " + obj.publicVar);
+
+        // Not Accessible - private members are only accessible within the same class
+        // System.out.println("privateVar: " + obj.privateVar); //Compile-time error
+
+        // Not Accessible - protected is not accessible via object in another package
+        // System.out.println("protectedVar: " + obj.protectedVar); // Compile-time error
+
+        // Not Accessible - default (package-private) only accessible within same package
+        // System.out.println("defaultVar: " + obj.defaultVar); // Compile-time error
+    }
+}
