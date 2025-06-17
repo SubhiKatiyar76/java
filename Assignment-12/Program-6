@@ -1,0 +1,96 @@
+import java.util.Scanner;
+
+// Custom exception for insufficient funds
+class InsufficientFundsException extends Exception {
+    public InsufficientFundsException(String message) {
+        super(message);
+    }
+}
+
+// BankAccount class with deposit and withdraw methods
+class BankAccount {
+    private double balance;
+
+    // Constructor
+    public BankAccount(double initialBalance) {
+        this.balance = initialBalance;
+    }
+
+    // Deposit method
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Deposited: ₹" + amount);
+        } else {
+            System.out.println("Invalid deposit amount.");
+        }
+    }
+
+    // Withdraw method with exception handling
+    public void withdraw(double amount) throws InsufficientFundsException {
+        if (amount <= 0) {
+            System.out.println("Invalid withdrawal amount.");
+        } else if (amount > balance) {
+            throw new InsufficientFundsException("Withdrawal failed. Insufficient balance.");
+        } else {
+            balance -= amount;
+            System.out.println("Withdrawn: ₹" + amount);
+        }
+    }
+
+    // Display balance
+    public void displayBalance() {
+        System.out.println("Current Balance: ₹" + balance);
+    }
+}
+
+// Main class
+public class SimpleBankingSystem {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        BankAccount account = new BankAccount(1000); // initial balance ₹1000
+
+        while (true) {
+            System.out.println("\n--- Banking Menu ---");
+            System.out.println("1. Deposit");
+            System.out.println("2. Withdraw");
+            System.out.println("3. Show Balance");
+            System.out.println("4. Exit");
+            System.out.print("Choose an option: ");
+
+            try {
+                int choice = Integer.parseInt(scanner.nextLine());
+
+                switch (choice) {
+                    case 1:
+                        System.out.print("Enter amount to deposit: ₹");
+                        double depositAmount = Double.parseDouble(scanner.nextLine());
+                        account.deposit(depositAmount);
+                        break;
+
+                    case 2:
+                        System.out.print("Enter amount to withdraw: ₹");
+                        double withdrawAmount = Double.parseDouble(scanner.nextLine());
+                        account.withdraw(withdrawAmount);
+                        break;
+
+                    case 3:
+                        account.displayBalance();
+                        break;
+
+                    case 4:
+                        System.out.println("Thank you for using our banking system!");
+                        scanner.close();
+                        return;
+
+                    default:
+                        System.out.println("Invalid option. Please try again.");
+                }
+            } catch (InsufficientFundsException e) {
+                System.out.println("Error: " + e.getMessage());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter numeric values.");
+            }
+        }
+    }
+} 
