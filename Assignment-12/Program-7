@@ -1,0 +1,23 @@
+public class CommandLineProcessor {
+    public static void main(String[] args) {
+        try {
+            if (args.length < 2) {
+                throw new ArrayIndexOutOfBoundsException("Two integer arguments are required.");
+            }
+
+            int num1 = Integer.parseInt(args[0]);
+            int num2 = Integer.parseInt(args[1]);
+
+            int sum = num1 + num2;
+            System.out.println("Sum of " + num1 + " and " + num2 + " is: " + sum);
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Error: " + e.getMessage());
+            System.out.println("Usage: java CommandLineProcessor <num1> <num2>");
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Invalid number format. Please enter valid integers.");
+        } finally {
+            System.out.println("Program finished.");
+        }
+    }
+}
