@@ -1,0 +1,63 @@
+import java.util.Scanner;
+
+class Customer {
+    String customerId;
+    String customerName;
+
+    Customer(String customerId, String customerName) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+    }
+
+    void displayCustomerDetails() {
+        System.out.println("Customer ID: " + customerId);
+        System.out.println("Customer Name: " + customerName);
+    }
+}
+
+class Billing extends Customer {
+    double billAmount;
+
+    Billing(String customerId, String customerName, double billAmount) {
+        super(customerId, customerName); 
+        this.billAmount = billAmount;
+    }
+
+    double calculateDiscount() {
+        double discount;
+        if (billAmount > 10000) {
+            discount = billAmount * 0.15;
+        } else if (billAmount > 5000) {
+            discount = billAmount * 0.10;
+        } else {
+            discount = billAmount * 0.05;
+        }
+        return discount;
+    }
+
+    void displayBillDetails() {
+        super.displayCustomerDetails();
+        System.out.println("Bill Amount: ₹" + billAmount);
+        double discount = calculateDiscount();
+        System.out.println("Discount: ₹" + discount);
+        System.out.println("Total Payable: ₹" + (billAmount - discount));
+    }
+}
+public class CustomerBillingSystem {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter Customer ID: ");
+        String id = scanner.nextLine();
+        System.out.print("Enter Customer Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter Bill Amount: ");
+        double amount = Double.parseDouble(scanner.nextLine());
+
+        Billing bill = new Billing(id, name, amount);
+
+        System.out.println("\n=== Billing Details ===");
+        bill.displayBillDetails();
+
+    }
+}
