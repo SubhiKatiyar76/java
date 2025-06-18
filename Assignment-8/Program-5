@@ -1,0 +1,32 @@
+class BankAccount {
+    private String holderName;
+    private double balance;
+
+    public BankAccount(String holderName, double balance) {
+        this.holderName = holderName;
+        this.balance = balance;
+    }
+
+    public final void generateAccountNumber() {
+        System.out.println("Account Number: BANK123456");
+    }
+
+    public void displayInfo() {
+        System.out.println("Account Holder: " + holderName);
+        System.out.println("Balance: ₹" + balance);
+    }
+}
+class SavingsAccount extends BankAccount {
+
+    public SavingsAccount(String holderName, double balance) {
+        super(holderName, balance);
+    }
+}
+
+public class BankingSystemDemo {
+    public static void main(String[] args) {
+        SavingsAccount sa = new SavingsAccount("Anjali", 50000);
+        sa.displayInfo();
+        sa.generateAccountNumber();
+    }
+}
