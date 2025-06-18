@@ -1,0 +1,54 @@
+import java.util.Scanner;
+
+class Vehicle {
+    String brand;
+    String model;
+    int year;
+
+    void inputVehicleDetails(Scanner scanner) {
+        System.out.print("Enter Brand: ");
+        brand = scanner.nextLine();
+        System.out.print("Enter Model: ");
+        model = scanner.nextLine();
+        System.out.print("Enter Year: ");
+        year = Integer.parseInt(scanner.nextLine());
+    }
+
+    void displayVehicleDetails() {
+        System.out.println("Brand: " + brand);
+        System.out.println("Model: " + model);
+        System.out.println("Year: " + year);
+    }
+}
+
+class Car extends Vehicle {
+    String fuelType;
+    int seatingCapacity;
+
+    void inputCarDetails(Scanner scanner) {
+        inputVehicleDetails(scanner);  
+        System.out.print("Enter Fuel Type: ");
+        fuelType = scanner.nextLine();
+        System.out.print("Enter Seating Capacity: ");
+        seatingCapacity = Integer.parseInt(scanner.nextLine());
+    }
+
+    void displayCarDetails() {
+        displayVehicleDetails();  
+        System.out.println("Fuel Type: " + fuelType);
+        System.out.println("Seating Capacity: " + seatingCapacity);
+    }
+}
+
+public class VehicleManagementSystem {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Car myCar = new Car();
+
+        System.out.println("=== Enter Car Details ===");
+        myCar.inputCarDetails(scanner);
+
+        System.out.println("\n=== Car Details ===");
+        myCar.displayCarDetails();
+    }
+}
