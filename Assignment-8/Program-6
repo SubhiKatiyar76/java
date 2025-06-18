@@ -1,0 +1,58 @@
+interface Switchable {
+    void turnOn();
+    void turnOff();
+}
+
+interface Configurable {
+    void setBrightness(int level);
+    void setColor(String color);
+}
+class SmartBulb implements Switchable, Configurable {
+    private boolean isOn = false;
+    private int brightness = 50; 
+    private String color = "White";
+
+    public void turnOn() {
+        isOn = true;
+        System.out.println("SmartBulb is turned ON.");
+    }
+
+    public void turnOff() {
+        isOn = false;
+        System.out.println("SmartBulb is turned OFF.");
+    }
+
+    public void setBrightness(int level) {
+        if (level >= 0 && level <= 100) {
+            brightness = level;
+            System.out.println("Brightness set to: " + brightness + "%");
+        } else {
+            System.out.println("Invalid brightness level. Must be between 0 and 100.");
+        }
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+        System.out.println("Color set to: " + color);
+    }
+
+    // Method to display bulb status
+    public void displayStatus() {
+        System.out.println("Status - ON: " + isOn + ", Brightness: " + brightness + "%, Color: " + color);
+    }
+}
+
+// Driver class
+public class SmartHomeDemo {
+    public static void main(String[] args) {
+        SmartBulb bulb = new SmartBulb();
+
+        bulb.turnOn();
+        bulb.setBrightness(75);
+        bulb.setColor("Warm White");
+        bulb.displayStatus();
+
+        bulb.turnOff();
+        bulb.displayStatus();
+    }
+}
