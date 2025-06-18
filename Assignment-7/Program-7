@@ -1,0 +1,85 @@
+class LibraryItem {
+    String title;
+    String publisher;
+    int year;
+
+    public LibraryItem(String title, String publisher, int year) {
+        this.title = title;
+        this.publisher = publisher;
+        this.year = year;
+    }
+
+    public void displayDetails() {
+        System.out.println("Title: " + title);
+        System.out.println("Publisher: " + publisher);
+        System.out.println("Year: " + year);
+    }
+}
+
+class Book extends LibraryItem {
+    String author;
+    int pageCount;
+
+    public Book(String title, String publisher, int year, String author, int pageCount) {
+        super(title, publisher, year);
+        this.author = author;
+        this.pageCount = pageCount;
+    }
+
+    public void displayBookDetails() {
+        super.displayDetails();
+        System.out.println("Author: " + author);
+        System.out.println("Page Count: " + pageCount);
+    }
+}
+
+class Magazine extends LibraryItem {
+    int issueNumber;
+    String genre;
+
+    public Magazine(String title, String publisher, int year, int issueNumber, String genre) {
+        super(title, publisher, year);
+        this.issueNumber = issueNumber;
+        this.genre = genre;
+    }
+
+    public void displayMagazineDetails() {
+        super.displayDetails();
+        System.out.println("Issue Number: " + issueNumber);
+        System.out.println("Genre: " + genre);
+    }
+}
+class Newspaper extends LibraryItem {
+    String date;
+    String editor;
+
+    public Newspaper(String title, String publisher, int year, String date, String editor) {
+        super(title, publisher, year);
+        this.date = date;
+        this.editor = editor;
+    }
+
+    public void displayNewspaperDetails() {
+        super.displayDetails();
+        System.out.println("Date: " + date);
+        System.out.println("Editor: " + editor);
+    }
+}
+
+
+public class LibrarySystem {
+    public static void main(String[] args) {
+        
+        Book book = new Book("The Java Handbook", "Tech Publishers", 2020, "John Smith", 350);
+        System.out.println("=== Book Details ===");
+        book.displayBookDetails();
+
+        Magazine magazine = new Magazine("Science Monthly", "EduMedia", 2023, 48, "Science");
+        System.out.println("\n=== Magazine Details ===");
+        magazine.displayMagazineDetails();
+
+        Newspaper newspaper = new Newspaper("The Daily News", "DailyPress", 2024, "18 June 2024", "Alice Brown");
+        System.out.println("\n=== Newspaper Details ===");
+        newspaper.displayNewspaperDetails();
+    }
+}
