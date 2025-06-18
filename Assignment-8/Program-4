@@ -1,0 +1,36 @@
+final class University {
+    private String name;
+    private String location;
+
+    public University(String name, String location) {
+        this.name = name;
+        this.location = location;
+    }
+
+    public void displayInfo() {
+        System.out.println("University Name: " + name);
+        System.out.println("Location: " + location);
+    }
+}
+
+class PrivateUniversity extends University
+{ 
+    private String founder;
+
+    public PrivateUniversity(String name, String location, String founder) {
+        super(name, location);
+        this.founder = founder;
+    }
+
+    public void displayFounder() {
+        System.out.println("Founder: " + founder);
+    }
+}
+
+// Main class
+public class UniversityManagement {
+    public static void main(String[] args) {
+        University uni = new University("ABC University", "Delhi");
+        uni.displayInfo();
+    }
+}
