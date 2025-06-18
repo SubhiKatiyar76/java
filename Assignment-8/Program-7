@@ -1,0 +1,35 @@
+abstract class User {
+    String username;
+
+    public User(String username) {
+        this.username = username;
+    }
+    abstract void login();
+}
+
+interface CourseContent {
+    void accessContent();
+}
+
+class Student extends User implements CourseContent {
+
+    public Student(String username) {
+        super(username);
+    }
+    @Override
+    void login() {
+        System.out.println("Student '" + username + "' has logged in successfully.");
+    }
+    @Override
+    public void accessContent() {
+        System.out.println("Student '" + username + "' is accessing course content.");
+    }
+}
+
+public class OnlineLearningDemo {
+    public static void main(String[] args) {
+        Student student = new Student("john_doe");
+        student.login();
+        student.accessContent();
+    }
+}
