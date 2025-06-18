@@ -1,0 +1,106 @@
+import java.util.Scanner;
+
+class UniversityMember {
+    String name;
+    String id;
+
+    void inputDetails(Scanner scanner) {
+        System.out.print("Enter Name: ");
+        name = scanner.nextLine();
+        System.out.print("Enter ID: ");
+        id = scanner.nextLine();
+    }
+
+    void displayDetails() {
+        System.out.println("Name: " + name);
+        System.out.println("ID: " + id);
+    }
+}
+
+class Student extends UniversityMember {
+    String course;
+    int year;
+
+    void inputStudentDetails(Scanner scanner) {
+        inputDetails(scanner);  
+        System.out.print("Enter Course: ");
+        course = scanner.nextLine();
+        System.out.print("Enter Year: ");
+        year = Integer.parseInt(scanner.nextLine());
+    }
+
+    void displayStudentDetails() {
+        displayDetails();  
+        System.out.println("Course: " + course);
+        System.out.println("Year: " + year);
+    }
+}
+
+class Professor extends UniversityMember {
+    String subject;
+    int experience;
+
+    void inputProfessorDetails(Scanner scanner) {
+        inputDetails(scanner);
+        System.out.print("Enter Subject: ");
+        subject = scanner.nextLine();
+        System.out.print("Enter Years of Experience: ");
+        experience = Integer.parseInt(scanner.nextLine());
+    }
+
+    void displayProfessorDetails() {
+        displayDetails();
+        System.out.println("Subject: " + subject);
+        System.out.println("Experience: " + experience + " years");
+    }
+}
+
+class Staff extends UniversityMember {
+    String position;
+    String department;
+
+    void inputStaffDetails(Scanner scanner) {
+        inputDetails(scanner);
+        System.out.print("Enter Position: ");
+        position = scanner.nextLine();
+        System.out.print("Enter Department: ");
+        department = scanner.nextLine();
+    }
+
+    void displayStaffDetails() {
+        displayDetails();
+        System.out.println("Position: " + position);
+        System.out.println("Department: " + department);
+    }
+}
+
+public class UniversitySystem {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Student
+        System.out.println("=== Enter Student Details ===");
+        Student student = new Student();
+        student.inputStudentDetails(scanner);
+
+        // Professor
+        System.out.println("\n=== Enter Professor Details ===");
+        Professor professor = new Professor();
+        professor.inputProfessorDetails(scanner);
+
+        // Staff
+        System.out.println("\n=== Enter Staff Details ===");
+        Staff staff = new Staff();
+        staff.inputStaffDetails(scanner);
+
+        // Display
+        System.out.println("\n=== Student Information ===");
+        student.displayStudentDetails();
+
+        System.out.println("\n=== Professor Information ===");
+        professor.displayProfessorDetails();
+
+        System.out.println("\n=== Staff Information ===");
+        staff.displayStaffDetails();
+    }
+}
