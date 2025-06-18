@@ -1,0 +1,41 @@
+interface Instrument {
+    void play();
+}
+
+interface StringInstrument extends Instrument {
+    void tuneStrings();
+}
+
+class Guitar implements StringInstrument {
+
+    @Override
+    public void play() {
+        System.out.println("Guitar is playing a melody.");
+    }
+
+    @Override
+    public void tuneStrings() {
+        System.out.println("Tuning the guitar strings.");
+    }
+
+    public void pluckStrings() {
+        System.out.println("Plucking the guitar strings.");
+    }
+}
+
+public class MusicDemo {
+    public static void main(String[] args) {
+
+        Instrument inst = new Guitar();
+        inst.play(); 
+
+        StringInstrument si = new Guitar();
+        si.play();          
+        si.tuneStrings();   
+
+        Guitar guitar = new Guitar();
+        guitar.play();
+        guitar.tuneStrings();
+        guitar.pluckStrings(); 
+    }
+}
