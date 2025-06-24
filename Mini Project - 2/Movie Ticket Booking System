@@ -1,0 +1,261 @@
+import java.util.*;
+
+class Movie {
+    String title;
+    String details;
+    String timing;
+    int availableSeats;
+
+    Movie(String title, String details, String timing, int seats) {
+        this.title = title;
+        this.details = details;
+        this.timing = timing;
+        this.availableSeats = seats;
+    }
+}
+
+class Booking {
+    String user;
+    String movieTitle;
+
+    Booking(String user, String movieTitle) {
+        this.user = user;
+        this.movieTitle = movieTitle;
+    }
+}
+
+public class MovieBookingSystem {
+    static Scanner sc = new Scanner(System.in);
+    static Map<String, String> users = new HashMap<>();
+    static List<Movie> movies = new ArrayList<>();
+    static List<Booking> bookings = new ArrayList<>();
+    static String currentUser = null;
+
+    public static void main(String[] args) {
+        // Add admin account
+        users.put("admin", "admin123");
+
+        while (true) {
+            System.out.println("\n1. Login\n2. Register\n3. Exit");
+            int choice = sc.nextInt();
+            sc.nextLine();
+            switch (choice) {
+                case 1 -> login();
+                case 2 -> register();
+                case 3 -> System.exit(0);
+                default -> System.out.println("Invalid option.");
+            }
+        }
+    }
+
+    static void login() {
+        System.out.print("Username: ");
+        String user = sc.nextLine();
+        System.out.print("Password: ");
+        String pass = sc.nextLine();
+
+        if (users.containsKey(user) && users.get(user).equals(pass)) {
+            currentUser = user;
+            if (user.equals("admin"))
+                adminMenu();
+            else
+                userMenu();
+        } else {
+            System.out.println("Login failed.");
+        }
+    }
+
+    static void register() {
+        System.out.print("Choose username: ");
+        String user = sc.nextLine();
+        if (users.containsKey(user)) {
+            System.out.println("User already exists.");
+            return;
+        }
+        System.out.print("Choose password: ");
+        String pass = sc.nextLine();
+        users.put(user, pass);
+        System.out.println("Registration successful.");
+    }
+
+    // USER MENU
+    static void userMenu() {
+        while (true) {
+            System.out.println("\nUser Menu");
+            System.out.println("1. View Movies");
+            System.out.println("2. Movie Details");
+            System.out.println("3. Book Ticket");
+            System.out.println("4. Cancel Ticket");
+            System.out.println("5. Logout");
+
+            int choice = sc.nextInt();
+            sc.nextLine();
+
+            switch (choice) {
+                case 1 -> viewMovies();
+                case 2 -> movieDetails();
+                case 3 -> bookTicket();
+                case 4 -> cancelTicket();
+                case 5 -> {
+                    currentUser = null;
+                    return;
+                }
+                default -> System.out.println("Invalid choice.");
+            }
+        }
+    }
+
+    // ADMIN MENU 
+    static void adminMenu() {
+        while (true) {
+            System.out.println("\nAdmin Menu");
+            System.out.println("1. Add Movie");
+            System.out.println("2. Update Movie");
+            System.out.println("3. Delete Movie");
+            System.out.println("4. View Bookings");
+            System.out.println("5. Logout");
+
+            int choice = sc.nextInt();
+            sc.nextLine();
+
+            switch (choice) {
+                case 1 -> addMovie();
+                case 2 -> updateMovie();
+                case 3 -> deleteMovie();
+                case 4 -> viewBookings();
+                case 5 -> {
+                    currentUser = null;
+                    return;
+                }
+                default -> System.out.println("Invalid choice.");
+            }
+        }
+    }
+
+    // USER FUNCTIONS 
+    static void viewMovies() {
+        if (movies.isEmpty()) {
+            System.out.println("No movies available.");
+        } else {
+            for (int i = 0; i < movies.size(); i++) {
+                System.out.println((i + 1) + ". " + movies.get(i).title);
+            }
+        }
+    }
+
+    static void movieDetails() {
+        viewMovies();
+        System.out.print("Enter movie number: ");
+        int index = sc.nextInt() - 1;
+        if (index >= 0 && index < movies.size()) {
+            Movie m = movies.get(index);
+            System.out.println("Title: " + m.title);
+            System.out.println("Details: " + m.details);
+            System.out.println("Timing: " + m.timing);
+            System.out.println("Available Seats: " + m.availableSeats);
+        } else {
+            System.out.println("Invalid movie selection.");
+        }
+    }
+
+    static void bookTicket() {
+        viewMovies();
+        System.out.print("Enter movie number: ");
+        int index = sc.nextInt() - 1;
+        if (index >= 0 && index < movies.size()) {
+            Movie m = movies.get(index);
+            if (m.availableSeats > 0) {
+                m.availableSeats--;
+                bookings.add(new Booking(currentUser, m.title));
+                System.out.println("Ticket booked for " + m.title);
+            } else {
+                System.out.println("No seats available.");
+            }
+        } else {
+            System.out.println("Invalid movie.");
+        }
+    }
+
+    static void cancelTicket() {
+        boolean found = false;
+        Iterator<Booking> iterator = bookings.iterator();
+        while (iterator.hasNext()) {
+            Booking b = iterator.next();
+            if (b.user.equals(currentUser)) {
+                System.out.println("Canceled ticket for: " + b.movieTitle);
+                for (Movie m : movies) {
+                    if (m.title.equals(b.movieTitle)) {
+                        m.availableSeats++;
+                        break;
+                    }
+                }
+                iterator.remove();
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            System.out.println("No booking found to cancel.");
+        }
+    }
+
+    // ADMIN FUNCTIONS 
+    static void addMovie() {
+        System.out.print("Enter title: ");
+        String title = sc.nextLine();
+        System.out.print("Enter details: ");
+        String details = sc.nextLine();
+        System.out.print("Enter show time: ");
+        String time = sc.nextLine();
+        System.out.print("Enter number of seats: ");
+        int seats = sc.nextInt();
+        sc.nextLine();
+        movies.add(new Movie(title, details, time, seats));
+        System.out.println("Movie added.");
+    }
+
+    static void updateMovie() {
+        viewMovies();
+        System.out.print("Enter movie number to update: ");
+        int index = sc.nextInt() - 1;
+        sc.nextLine();
+        if (index >= 0 && index < movies.size()) {
+            Movie m = movies.get(index);
+            System.out.print("New title: ");
+            m.title = sc.nextLine();
+            System.out.print("New details: ");
+            m.details = sc.nextLine();
+            System.out.print("New time: ");
+            m.timing = sc.nextLine();
+            System.out.print("New seats: ");
+            m.availableSeats = sc.nextInt();
+            sc.nextLine();
+            System.out.println("Movie updated.");
+        } else {
+            System.out.println("Invalid selection.");
+        }
+    }
+
+    static void deleteMovie() {
+        viewMovies();
+        System.out.print("Enter movie number to delete: ");
+        int index = sc.nextInt() - 1;
+        sc.nextLine();
+        if (index >= 0 && index < movies.size()) {
+            movies.remove(index);
+            System.out.println("Movie deleted.");
+        } else {
+            System.out.println("Invalid selection.");
+        }
+    }
+
+    static void viewBookings() {
+        if (bookings.isEmpty()) {
+            System.out.println("No bookings.");
+        } else {
+            for (Booking b : bookings) {
+                System.out.println("User: " + b.user + ", Movie: " + b.movieTitle);
+            }
+        }
+    }
+}
