@@ -1,0 +1,252 @@
+import java.sql.*;
+import java.util.*;
+
+public class BugTrackingSystem {
+    static final String DB_URL = "jdbc:mysql://localhost:3306/BDS";
+    static final String USER = "root";
+    static final String PASS = "your_password"; // change to your MySQL password
+    static Scanner sc = new Scanner(System.in);
+    static Connection conn;
+
+    public static void main(String[] args) {
+        try {
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("Welcome to Bug Tracking System");
+
+            while (true) {
+                System.out.println("\n1. Login\n2. Exit");
+                int choice = sc.nextInt();
+                sc.nextLine();
+                if (choice == 1) login();
+                else break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    static void login() throws SQLException {
+        System.out.print("Enter empCode: ");
+        int empCode = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Enter Password: ");
+        String pass = sc.nextLine();
+
+        PreparedStatement ps = conn.prepareStatement("SELECT * FROM Employee WHERE empCode = ? AND empPassword = ?");
+        ps.setInt(1, empCode);
+        ps.setString(2, pass);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            String role = rs.getString("Role");
+            switch (role.toLowerCase()) {
+                case "admin": adminPanel(); break;
+                case "manager": managerPanel(empCode); break;
+                case "developer":
+                case "tester": employeePanel(empCode); break;
+                default: System.out.println("Unknown role");
+            }
+        } else {
+            System.out.println("Invalid credentials.");
+        }
+    }
+
+    // Admin Panel
+    static void adminPanel() throws SQLException {
+        while (true) {
+            System.out.println("\n--- Admin Panel ---");
+            System.out.println("1. Add Manager\n2. View Managers\n3. Delete Manager\n4. Add Employee\n5. View Employees\n6. View Projects\n7. View Bugs\n8. Exit");
+            int ch = sc.nextInt();
+            sc.nextLine();
+
+            switch (ch) {
+                case 1 -> addEmployee("manager");
+                case 2 -> viewEmployees("manager");
+                case 3 -> deleteEmployee("manager");
+                case 4 -> addEmployee("developer"); // or "tester"
+                case 5 -> viewEmployees("all");
+                case 6 -> viewProjects();
+                case 7 -> viewBugs();
+                case 8 -> { return; }
+            }
+        }
+    }
+
+    static void addEmployee(String role) throws SQLException {
+        System.out.print("Name: ");
+        String name = sc.nextLine();
+        System.out.print("Email: ");
+        String email = sc.nextLine();
+        System.out.print("Password: ");
+        String pass = sc.nextLine();
+        System.out.print("Gender: ");
+        String gender = sc.nextLine();
+        System.out.print("DOB: ");
+        String dob = sc.nextLine();
+        System.out.print("Mobile No: ");
+        long mobile = sc.nextLong();
+        sc.nextLine();
+
+        PreparedStatement ps = conn.prepareStatement("INSERT INTO Employee (empName, empEmail, empPassword, gender, DOB, mobileNo, Role) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        ps.setString(1, name);
+        ps.setString(2, email);
+        ps.setString(3, pass);
+        ps.setString(4, gender);
+        ps.setString(5, dob);
+        ps.setLong(6, mobile);
+        ps.setString(7, role);
+        int result = ps.executeUpdate();
+        System.out.println(result > 0 ? "Employee added." : "Failed.");
+    }
+
+    static void viewEmployees(String role) throws SQLException {
+        String query = "SELECT * FROM Employee";
+        if (!role.equals("all")) query += " WHERE Role = ?";
+        PreparedStatement ps = conn.prepareStatement(query);
+        if (!role.equals("all")) ps.setString(1, role);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            System.out.println("Code: " + rs.getInt("empCode") + ", Name: " + rs.getString("empName") + ", Role: " + rs.getString("Role"));
+        }
+    }
+
+    static void deleteEmployee(String role) throws SQLException {
+        System.out.print("Enter empCode to delete: ");
+        int code = sc.nextInt();
+        sc.nextLine();
+        PreparedStatement ps = conn.prepareStatement("DELETE FROM Employee WHERE empCode = ? AND Role = ?");
+        ps.setInt(1, code);
+        ps.setString(2, role);
+        int result = ps.executeUpdate();
+        System.out.println(result > 0 ? "Deleted successfully." : "Employee not found.");
+    }
+
+    // Manager Panel
+    static void managerPanel(int empCode) throws SQLException {
+        while (true) {
+            System.out.println("\n--- Manager Panel ---");
+            System.out.println("1. Add Project\n2. View Projects\n3. Delete Project\n4. Add Bug\n5. View Bugs\n6. Exit");
+            int ch = sc.nextInt();
+            sc.nextLine();
+            switch (ch) {
+                case 1 -> addProject();
+                case 2 -> viewProjects();
+                case 3 -> deleteProject();
+                case 4 -> addBug();
+                case 5 -> viewBugs();
+                case 6 -> { return; }
+            }
+        }
+    }
+
+    static void addProject() throws SQLException {
+        System.out.print("Project Name: ");
+        String name = sc.nextLine();
+        System.out.print("Start Date: ");
+        String sDate = sc.nextLine();
+        System.out.print("End Date: ");
+        String eDate = sc.nextLine();
+        System.out.print("Description: ");
+        String desc = sc.nextLine();
+
+        PreparedStatement ps = conn.prepareStatement("INSERT INTO Project (projectName, SDate, EDate, projectDec) VALUES (?, ?, ?, ?)");
+        ps.setString(1, name);
+        ps.setString(2, sDate);
+        ps.setString(3, eDate);
+        ps.setString(4, desc);
+        int result = ps.executeUpdate();
+        System.out.println(result > 0 ? "Project added." : "Failed.");
+    }
+
+    static void viewProjects() throws SQLException {
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery("SELECT * FROM Project");
+        while (rs.next()) {
+            System.out.println("ID: " + rs.getInt("projectID") + ", Name: " + rs.getString("projectName"));
+        }
+    }
+
+    static void deleteProject() throws SQLException {
+        System.out.print("Enter projectID to delete: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+        PreparedStatement ps = conn.prepareStatement("DELETE FROM Project WHERE projectID = ?");
+        ps.setInt(1, id);
+        int result = ps.executeUpdate();
+        System.out.println(result > 0 ? "Deleted." : "Project not found.");
+    }
+
+    static void addBug() throws SQLException {
+        System.out.print("Bug Code (1–8): ");
+        int bugCode = sc.nextInt();
+        System.out.print("Project ID: ");
+        int projectID = sc.nextInt();
+        System.out.print("Tester Code: ");
+        int tCode = sc.nextInt();
+        System.out.print("Employee Code: ");
+        int eCode = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Bug Description: ");
+        String desc = sc.nextLine();
+        String status = "pending";
+
+        PreparedStatement ps = conn.prepareStatement("INSERT INTO BugReport (bugCode, projectID, TCode, ECode, status, bugDes) VALUES (?, ?, ?, ?, ?, ?)");
+        ps.setInt(1, bugCode);
+        ps.setInt(2, projectID);
+        ps.setInt(3, tCode);
+        ps.setInt(4, eCode);
+        ps.setString(5, status);
+        ps.setString(6, desc);
+        int result = ps.executeUpdate();
+        System.out.println(result > 0 ? "Bug added." : "Failed.");
+    }
+
+    static void viewBugs() throws SQLException {
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery("SELECT * FROM BugReport");
+        while (rs.next()) {
+            System.out.println("Bug No: " + rs.getInt("bugNo") + ", Status: " + rs.getString("status") + ", Desc: " + rs.getString("bugDes"));
+        }
+    }
+
+    // Employee Panel
+    static void employeePanel(int empCode) throws SQLException {
+        while (true) {
+            System.out.println("\n--- Employee Panel ---");
+            System.out.println("1. View My Bugs\n2. Update Bug Status\n3. Exit");
+            int ch = sc.nextInt();
+            sc.nextLine();
+            switch (ch) {
+                case 1 -> viewEmployeeBugs(empCode);
+                case 2 -> updateBugStatus(empCode);
+                case 3 -> { return; }
+            }
+        }
+    }
+
+    static void viewEmployeeBugs(int empCode) throws SQLException {
+        PreparedStatement ps = conn.prepareStatement("SELECT * FROM BugReport WHERE ECode = ?");
+        ps.setInt(1, empCode);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            System.out.println("Bug No: " + rs.getInt("bugNo") + ", Desc: " + rs.getString("bugDes") + ", Status: " + rs.getString("status"));
+        }
+    }
+
+    static void updateBugStatus(int empCode) throws SQLException {
+        System.out.print("Enter Bug No to update: ");
+        int bugNo = sc.nextInt();
+        sc.nextLine();
+        System.out.print("New Status (pending/resolved): ");
+        String status = sc.nextLine();
+
+        PreparedStatement ps = conn.prepareStatement("UPDATE BugReport SET status = ? WHERE bugNo = ? AND ECode = ?");
+        ps.setString(1, status);
+        ps.setInt(2, bugNo);
+        ps.setInt(3, empCode);
+        int result = ps.executeUpdate();
+        System.out.println(result > 0 ? "Updated." : "Failed or unauthorized.");
+    }
+}
